@@ -1,0 +1,71 @@
+{
+  "name": "p7",
+  "version": "1.0.0",
+  "author": "Baptiste Harle",
+  "private": true,
+  "scripts": {
+    "start": "rm -rf ./backend/build && rm -rf ./backend/webapp && npm run frontend:build && npm run backend:build && cp -R ./backend/webapp ./backend/build/webapp && node ./backend/build/index.js",
+    "backend:start": "npm run backend:build && node ./build/index.js",
+    "backend:dev": "nodemon --exec babel-node ./backend/index.js",
+    "backend:clean": "rm -rf ./backend/build && mkdir ./backend/build",
+    "backend:build-babel": "babel -d ./backend/build ./backend/index.js -s && babel -d ./backend/build/src ./backend/src -s",
+    "backend:build": "npm run backend:clean && npm run backend:build-babel",
+    "frontend:start": "cd frontend && react-scripts start",
+    "frontend:build": "cp ./package.json ./frontend/package.json && cd frontend && react-scripts build && rm -rf ../backend/webapp && mv ./build ../backend/webapp && rm -rf package.json node_modules build",
+    "frontend:test": "cd frontend && react-scripts test",
+    "frontend:eject": "cd frontend && react-scripts eject"
+  },
+  "dependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/node": "^7.15.8",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.15.8",
+    "@babel/runtime": "^7.15.4",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "axios": "^0.23.0",
+    "babel-node": "^0.0.1-security",
+    "bootstrap": "^5.1.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "moment": "^2.29.1",
+    "mysql2": "^2.3.0",
+    "node-sass": "^5.0.0",
+    "nodemon": "^2.0.13",
+    "pg": "^8.7.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.0.0-rc.1",
+    "react-dom": "^17.0.2",
+    "react-redux": "^7.2.5",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "redux": "^4.1.1",
+    "save": "^2.4.0",
+    "sequelize": "^6.6.5",
+    "web-vitals": "^1.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

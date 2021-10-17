@@ -1,0 +1,6 @@
+node_modules
+
+backend/build
+backend/webapp
+
+frontend/package.json
