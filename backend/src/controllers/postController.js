@@ -1,4 +1,26 @@
+import tmp from 'tmp';
+import formidable from 'formidable';
+import { v4 } from 'uuid';
+import { cloneDeep } from 'lodash';
+import Bucketeer from '../utils/Bucketeer';
 import { Post, User, Comment } from '../data/schema';
+
+const formatPosts = async (posts) => {
+  const bucket = new Bucketeer();
+  const nextPosts = cloneDeep(posts);
+
+  // console.log('nextPosts:', nextPosts);
+  // Le Saint Graal pour ajouter les URL signées à la place des pictures
+  const formatted = await Promise.all(nextPosts.map(async (p) => {
+    if (p.dataValues.img) {
+      const url = await bucket.getPresignedUrl(p.dataValues.img);
+      p.dataValues.img = url;
+    }
+    return p.dataValues;
+  }));
+
+  return formatted;
+};
 
 class PostController {
   static async getPost(req, res, next) {
@@ -15,29 +37,57 @@ class PostController {
       }],
       order: [['createdAt', 'DESC']]
     });
-    res.json({ code: 200, msg: 'Voici les posts.', data: { posts }, errors: [] });
+
+    const formattedPosts = await formatPosts(posts);
+    res.json({ code: 200, msg: 'Voici les posts.', data: { posts: formattedPosts }, errors: [] });
   }
 
   static async createPost(req, res, next) {
-    const { content } = req.body;
-    const errors = [];
 
+    const bucket = new Bucketeer();
 
-    if (!content) {
-      errors.push('Merci de renseigner un contenu valide.');
-    }
+    res.on('finish', () => {
+      tmpObj.removeCallback()
+    });
 
-    if (errors.length === 0) {
-      console.log(req.user);
-      const post = await Post.create({
+    res.on('error', () => {
+      tmpObj.removeCallback()
+    });
+
+    const tmpObj = tmp.dirSync({ unsafeCleanup: true });
+    const form = new formidable.IncomingForm({ uploadDir: tmpObj.name, keepExtensions: true });
+
+    form.parse(req, async (err, fields, files) => {
+
+      const { content } = fields;
+      const { img } = files;
+      const errors = [];
+
+      if (!content) {
+        errors.push('Merci de renseigner un contenu valide.');
+      }
+
+      let payload = {
         userId: req.user.id,
         content,
-      });
+      };
 
-      res.json({ code: 200, msg: "Post créé.", data: { post }, errors });
-    } else {
-      res.json({ code: 403, msg: "Impossible de créer le post.", data: {}, errors });
-    }
+      if (content && img) {
+        const fileKey = await bucket.upload({ file: img, id: v4() });
+        payload.img = fileKey;
+      }
+
+
+      if (errors.length === 0) {
+        console.log(req.user);
+        const post = await Post.create(payload);
+
+        res.json({ code: 200, msg: "Post créé.", data: { post }, errors });
+      } else {
+        res.json({ code: 403, msg: "Impossible de créer le post.", data: {}, errors });
+      }
+
+    });
 
   }
 
@@ -79,6 +129,7 @@ class PostController {
       res.json({ code: 403, msg: "Impossible de modifier le post.", data: {}, errors });
     }
   }
+  
 }
 
 export default PostController;

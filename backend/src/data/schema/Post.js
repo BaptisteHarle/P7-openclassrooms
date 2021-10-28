@@ -15,6 +15,11 @@ const Post = database.define('post', {
     allowNull: false,
     type: DataTypes.STRING,
   },
+  img: {
+    unique: false,
+    allowNull: true,
+    type: DataTypes.STRING,
+  },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,

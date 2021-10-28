@@ -18,6 +18,7 @@ function Wall({ dispatch, user, app }) {
   const [content, setContent] = useState('');
   const [postLoading, setPostLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     async function onStart() {
@@ -36,15 +37,26 @@ function Wall({ dispatch, user, app }) {
     onStart();
   }, [router, checkSession, fetchUserInfos, dispatch, getPosts]);
 
-  async function onPost() {
+  async function onPost(e) {
     setPostLoading(true);
     if (checkForm()) {
       const url = config.api.endpoint + config.api.routes.post;
-      const body = { content };
+      const data = new FormData();
+      const img = file;
+      const input = document.getElementById('input');
+      console.log(img);
+      if (img) {
+        data.append('img', img, {
+          uri: img.uri,
+          type: img.type,
+          name: 'img'
+        });
+      }
+      data.append('content', content);
       const jwt = localStorage.getItem('jwt');
-      await axios.post(url, body, {
+      await axios.post(url, data, {
         headers: {
-          Authorization: `Bearer ${jwt}`
+          Authorization: `Bearer ${jwt}`,
         }
       });
       await getPosts();
@@ -69,6 +81,7 @@ function Wall({ dispatch, user, app }) {
         <div className="wall">
           <p className="hi">Bonjour <span>{user.user.email}</span>, quoi de neuf aujourd'hui ?</p>
           <textarea maxLength={255} className={error && 'error'} onChange={(e) => setContent(e.target.value)} />
+          <input id="input" type="file" onChange={(e) => setFile(e.target.files[0])} onClick={e => (e.target.value = null)}/>
           <Button
             label="Poster"
             bgColor="#faa1a1"

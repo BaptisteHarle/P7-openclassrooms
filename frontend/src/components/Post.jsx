@@ -15,7 +15,7 @@ function Post({ post, user: sessionUser, onDelete }) {
 
   moment.locale = 'fr';
 
-  const { content, createdAt, comments, user: author } = post;
+  const { content, createdAt, comments, img, user: author } = post;
 
   const [commentsVisible, setCommentsVisible] = useState(false);
   const [nextComment, setNextComment] = useState('');
@@ -78,6 +78,9 @@ function Post({ post, user: sessionUser, onDelete }) {
         {isAuthor ? 'Vous' : `${hasAuthor ? `${author.firstName} ${author.lastName.toUpperCase()}` : `Utilisateur supprimé`}`}
       </p>
       <p className="date">{moment(createdAt).lang('fr').format('LLLL')}</p>
+      {img && (
+         <img className="image" src={img} alt={content}/>
+      )}
       <p style={{ textAlign: 'left', color: '#faa1a1', width: '100%', fontSize: 30, marginBottom: 20 }}>❞</p>
       <p className="content">{content}</p>
       <p style={{ textAlign: 'right', color: '#faa1a1', width: '100%', fontSize: 30, marginBottom: 20 }}>❞</p>
