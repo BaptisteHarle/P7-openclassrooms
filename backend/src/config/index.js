@@ -10,8 +10,8 @@ const config = {
   },
   storage: {
     bucketName: 'bucketeer-f6929cdb-29e1-4510-8650-08c4c02c8a2d',
-    accesKeyId: 'AKIARVGPJVYVMK5SUQMG',
-    secretAccessKey: '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',
+    accesKeyId: 'AKIARVGPJVYVHHHDJEPR',
+    secretAccessKey: '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',
     publicUrl: 'https://bucketeer-f6929cdb-29e1-4510-8650-08c4c02c8a2d.s3.amazonaws.com/public/',
     region: 'eu-west-1',
   },

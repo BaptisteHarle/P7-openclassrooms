@@ -1,4 +1,4 @@
-export default {
+const config = {
   user: {
     firstName(firstName) {
       return firstName && typeof firstName === 'string' && firstName.length >= 2;
@@ -16,3 +16,5 @@ export default {
     },
   },
 };
+
+export default config;
