@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import config from '../config';
 
 function createJWT(payload) {
-  return jwt.sign(payload, config.jwt.secret/*, { expiresIn: '1800s' } */);
+  return jwt.sign(payload, config.jwt.secret, { expiresIn: '86400s' } );
 }
 
 function verifyJWT(token) {

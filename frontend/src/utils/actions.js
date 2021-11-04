@@ -27,6 +27,24 @@ const actions = {
     Store.dispatch(action);
     return posts;
   },
+  async getUsers() {
+    const url = config.api.endpoint + config.api.routes.user;
+    const jwt = localStorage.getItem('jwt');
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+    const users = response.data.data.users;
+
+    const action = {
+      type: 'UPDATE_APP',
+      value: { users },
+    };
+
+    Store.dispatch(action);
+    return users;
+  },
   checkSession() {
     const jwt = localStorage.getItem('jwt');
     return jwt ? true : false;

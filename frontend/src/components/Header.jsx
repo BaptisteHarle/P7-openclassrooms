@@ -36,6 +36,10 @@ function Header({ dispatch, user }) {
     setShowConfirm(!showConfirm);
   }
 
+  function onManage() {
+    router.push('/manage')
+  }
+
   async function onDelete() {
     setDeleteLoading(true);
 
@@ -109,6 +113,15 @@ function Header({ dispatch, user }) {
                   bgColor="lightgrey"
                   color="black"
                   onPress={onLogout} />
+              </li>
+            )}
+             {user.user.id === 1 && (
+              <li className="nav-item">
+                <Button
+                  label="Gestion"
+                  bgColor="red"
+                  color="white"
+                  onPress={onManage} />
               </li>
             )}
           </ul>

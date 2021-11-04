@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Store from './store';
-import { Login, Signup, Wall } from './pages';
+import { Login, Signup, Wall, Manage } from './pages';
 import { Header } from './components';
 import './App.scss';
 
@@ -25,6 +25,9 @@ function App() {
             </Route>
             <Route path="/">
               <Login />
+            </Route>
+            <Route path="/manage">
+              <Manage />
             </Route>
           </Switch>
         </Router>

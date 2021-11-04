@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
 import axios from 'axios';
 import actions from '../utils/actions';
 import v from '../utils/validation';
