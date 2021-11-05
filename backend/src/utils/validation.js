@@ -6,7 +6,7 @@ const config = {
     },
     lastName(lastName) {
       const re = /^[a-zA-Z\s]*$/;  
-      return lastName && typeof firstName === 'string' && lastName.length >= 2 && re.test(String(lastName));
+      return lastName && typeof lastName === 'string' && lastName.length >= 2 && re.test(String(lastName));
     },
     email(email) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

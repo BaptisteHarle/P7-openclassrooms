@@ -40,7 +40,7 @@ function Manage({ dispatch, app }) {
 
   async function onDelete() {
     setDeleteLoading(true);
-
+    const user = await fetchUserInfos();
     const url = `${config.api.endpoint}${config.api.routes.user}/${user.user.id}`;
     const jwt = localStorage.getItem('jwt');
 

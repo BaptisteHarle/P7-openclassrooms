@@ -115,7 +115,7 @@ function Header({ dispatch, user }) {
                   onPress={onLogout} />
               </li>
             )}
-             {user.user.id === 1 && (
+             {user.user && user.user.id === 1 && (
               <li className="nav-item">
                 <Button
                   label="Gestion"
