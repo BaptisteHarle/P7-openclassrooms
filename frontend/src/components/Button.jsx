@@ -1,7 +1,7 @@
 import React from 'react';
 import { Spinner } from 'react-bootstrap';
 
-function Button({ label, loading, bgColor, color, onPress, width, marginRight, marginTop, disabled }) {
+function Button({ label, loading, bgColor, color, onPress, width, marginRight, marginTop, disabled, style }) {
   return (
     <button
       className="btn"
@@ -11,6 +11,7 @@ function Button({ label, loading, bgColor, color, onPress, width, marginRight, m
           marginRight || 'unset',
         width: width || 'unset',
         marginTop: marginTop || 'unset',
+        ...style,
       }}
       onClick={onPress || (() => { })}
       disabled={disabled || loading}>

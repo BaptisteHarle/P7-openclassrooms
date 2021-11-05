@@ -21,8 +21,8 @@ class UserController {
       where: {
         email: email,
       }
-    })
-    
+    });
+
     if (alreadyExist) {
       errors.push('Cet email est déja utilisé');
     }

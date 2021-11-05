@@ -23,11 +23,11 @@ function App() {
             <Route path="/signup" >
               <Signup />
             </Route>
-            <Route path="/">
-              <Login />
-            </Route>
             <Route path="/manage">
               <Manage />
+            </Route>
+            <Route path="/">
+              <Login />
             </Route>
           </Switch>
         </Router>

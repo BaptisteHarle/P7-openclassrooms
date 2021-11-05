@@ -96,6 +96,10 @@ ul {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
+  .table {
+    width: 100%;
+  }
 }
 
 .input {
@@ -317,6 +321,7 @@ ul {
 }
 
 @media (max-device-width: 575px){ 
+
   .navbar-nav.mr-auto {
     display: flex;
     flex-direction: column;
@@ -341,3 +346,4 @@ ul {
     height: 38px;
   }
 }
+

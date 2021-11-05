@@ -6,6 +6,7 @@ const config = {
       signup: '/signup',
       login: '/login',
       user: '/user',
+      users: '/users',
       post: '/post',
       comment: '/comment',
     },

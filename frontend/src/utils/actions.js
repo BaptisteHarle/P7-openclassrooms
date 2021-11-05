@@ -28,14 +28,14 @@ const actions = {
     return posts;
   },
   async getUsers() {
-    const url = config.api.endpoint + config.api.routes.user;
+    const url = config.api.endpoint + config.api.routes.users;
     const jwt = localStorage.getItem('jwt');
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${jwt}`,
       },
     });
-    const users = response.data.data.users;
+    const { users } = response.data.data;
 
     const action = {
       type: 'UPDATE_APP',
@@ -43,6 +43,20 @@ const actions = {
     };
 
     Store.dispatch(action);
+    return users;
+  },
+  async deleteUser(id) {
+    const url = `${config.api.endpoint}${config.api.routes.user}/${id}`;
+    const jwt = localStorage.getItem('jwt');
+
+    await axios.delete(url, {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    });
+
+    const users = await actions.getUsers();
+
     return users;
   },
   checkSession() {

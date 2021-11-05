@@ -37,7 +37,7 @@ function Header({ dispatch, user }) {
   }
 
   function onManage() {
-    router.push('/manage')
+    router.push('/manage');
   }
 
   async function onDelete() {
@@ -115,7 +115,7 @@ function Header({ dispatch, user }) {
                   onPress={onLogout} />
               </li>
             )}
-             {user.user && user.user.id === 1 && (
+             {user.user && user.user.roleId === 1 && (
               <li className="nav-item">
                 <Button
                   label="Gestion"

@@ -42,8 +42,6 @@ function Wall({ dispatch, user, app }) {
       const url = config.api.endpoint + config.api.routes.post;
       const data = new FormData();
       const img = file;
-      // const input = document.getElementById('input');
-      console.log(img);
       if (img) {
         data.append('img', img, {
           uri: img.uri,
